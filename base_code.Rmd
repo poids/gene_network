@@ -47,3 +47,13 @@ distMatrix_genes <- shortest.paths(gene_graph, v = V(gene_graph), to = V(gene_gr
 #Plot
 plot(gene_graph, layout = layout.fruchterman.reingold, vertex.size = 6, vertex.label = NA)
 ```
+
+
+```{r, eval=FALSE}
+#names of all genes with networks
+names(distMatTEST[distMatTEST[,1]!=0,])
+
+#Network of specific gene
+names(which(distMatrix_genes["gene",]!=Inf & distMatrix_genes["gene",]!=0))
+```
+
