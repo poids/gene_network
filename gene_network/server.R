@@ -33,6 +33,11 @@ shinyServer(function(input, output) {
     #Gene-pair distnaces in network
     distMatrix_genes <- shortest.paths(gene_graph, v = V(gene_graph), to = V(gene_graph))
    
+    #Find genes with netowrks
+    df1 <- distMatrix_genes
+    df1[is.infinite(df1)]<-0
+    df1 <- apply(df1, 1, sum)
+    df1 <- names(df1[df1!=0])
    
     #Path between genes (VARIABLE= Separate input box for each gene in path; need to pull gene_pairs from distMatrix_genes in next line)
     #pl <- get.shortest.paths(gene_graph, "Tcta", "Robo1")$vpath[[1]]

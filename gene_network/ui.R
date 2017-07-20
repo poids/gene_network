@@ -25,11 +25,11 @@ shinyUI(fluidPage(
                    step = 0.05),
        
        
-       selectInput("gene1",
-                   label = h3("Select Gene 1:"),
-                   names(distMatTEST[distMatTEST[,1]!=0,]),
-                   selected = names(distMatTEST[distMatTEST[,1]!=0,])[1]
-                   )#,
+        selectInput("gene1",
+                    label = h3("Select Gene 1:"),
+                    df1,
+                    selected = df1[1]
+                    )
        
        # selectInput("gene2",
        #             label = h3("Select Gene 2:"),
