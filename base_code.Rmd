@@ -17,7 +17,7 @@ genes_sam <- expr_data[sample(nrow(expr_data), 250, F),] #VARIABLE=sample size (
 #Max ~2500=48Mb
 
 
-genes_cor <- cor(t(genes_sam)) # calculate the correlation between all gene pairs
+genes_cor <- cor(t(expr_data)) # calculate the correlation between all gene pairs
 
 #VARIABLE = Cut-off slider (Threshold cut-off, slider 0-100)
 genes_adj <- abs(genes_cor) > 0.85 # leave original matrix intact
@@ -63,4 +63,27 @@ names(distMatTEST[distMatTEST[,1]!=0,])
 #Network of specific gene
 names(which(distMatrix_genes["gene",]!=Inf & distMatrix_genes["gene",]!=0))
 ```
+
+logFC
+```{r}
+#isolate geneID and logFC
+DT <- data.table::data.table(results["unique_id"], results["logFC"])
+
+#sum logFC for each gene
+logFC<-as.data.frame(DT[, lapply(.SD, sum), by = "unique_id"])
+
+#Sort Increasing
+logFC[order(logFC$logFC),]
+
+#Sort Decreasing
+logFC[order(-logFC$logFC),]
+
+
+#Get row index number::: Change row selection to input-slider
+genes_cor <- genes_cor[as.numeric(rownames(logFC[order(-logFC$logFC), ])),]  
+
+#another work-around?:
+genes_cor[logFC[order(logFC$logFC), "unique_id"],]
+```
+
 
